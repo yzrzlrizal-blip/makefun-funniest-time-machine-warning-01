@@ -1,6 +1,6 @@
 """Funniest Time Machine Warning Label — make.fun entry.
 
-Writes one warning label (97 chars) to $MAKEFUN_OUTPUT_DIR/entry.txt
+Writes one warning label (95 chars) to $MAKEFUN_OUTPUT_DIR/entry.txt
 (default /output/entry.txt), then re-reads it to verify the bytes.
 Pure standard library; deterministic.
 """
@@ -22,6 +22,8 @@ def main() -> None:
     with open(path, "r", encoding="utf-8") as f:
         written = f.read()
     assert written == LABEL, "entry.txt does not match the label"
+    assert len(written) == len(LABEL) == 95, "label must be exactly 95 characters"
+    assert "\n" not in written, "label must be a single line"
     assert 1 <= len(written) <= 120, "label must be 1-120 characters"
     assert written.strip(), "label must not be only whitespace"
     print(f"wrote {len(written)} chars to {path}")
